@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.qc.bean.Department;
 import com.qc.bean.Employee;
 import com.qc.bean.Msg;
 import com.qc.service.EmployeeService;
@@ -104,5 +104,25 @@ public class EmployeeController {
 		} else {
 			return Msg.fail().add("va_msg", "用户名不可用");
 		}
+	}
+	/*
+	 * 点击编辑按钮根据id查询相关用户信息并把信息返回到前台页面
+	 * 
+	 * */
+	@RequestMapping(value="/empUpdate/{id}",method=RequestMethod.GET)
+	@ResponseBody
+	public Msg queryEmp(@PathVariable("id") Integer id){
+		Employee emp=employeeService.findById(id);
+		return Msg.success().add("emp_info", emp);
+	}
+	
+	/*
+	 * 员工更新
+	 * */
+	@ResponseBody
+	@RequestMapping(value="/empUpdateAndSave/{empId}",method=RequestMethod.PUT)
+	public Msg saveEmp(Employee employee){
+		employeeService.updateEmployee(employee);
+		return Msg.success();
 	}
 }

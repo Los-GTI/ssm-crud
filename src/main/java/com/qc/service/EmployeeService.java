@@ -54,6 +54,23 @@ public class EmployeeService {
 		long count=employeeMapper.countByExample(example);
 		return count==0;
 	}
+
+	/**
+	 * @param empId
+	 * @return
+	 */
+	public Employee findById(int id) {
+		// TODO Auto-generated method stub
+		return employeeMapper.selectByPrimaryKeyWithDept(id);
+	}
+
+	/**
+	 * @param employee
+	 */
+	public void updateEmployee(Employee employee) {
+		// TODO Auto-generated method stub
+		employeeMapper.updateByPrimaryKeySelective(employee);
+	}
 	
 	
 }
