@@ -219,6 +219,7 @@ http://localhost:3306/crud
 						"btn btn-danger btn-sm").append("<span></span>")
 						.addClass("glyphicon glyphicon-remove del_btn").append(
 								"删除");
+				delBtnTd.attr("del-id",item.empId);
 				var btnTd = $("<td></td>").append(editBtnTd).append(" ")
 						.append(delBtnTd);
 				$("<tr></tr>").append(empIdTd).append(empNameTd).append(
@@ -442,6 +443,22 @@ http://localhost:3306/crud
 			$('#emp_update_modal').modal({
 				backdrop:'static'
 			})
+		});
+		//给删除按钮绑事件
+		$(document).on("click",".del_btn",function(){
+			//alert($(this).parents("tr").find("td:eq(1)").text());
+			var empName=$(this).parents("tr").find("td:eq(1)").text();
+			var empId=$(this).attr("del-id");
+			if(confirm("确认删除【"+empName+"】吗?")){
+				$.ajax({
+					url:"${APP_PATH}/deleteById/"+empId,
+					type:"GET",
+					success:function(result){
+						alert(result.msg);
+						toPage(currentPage);
+					}
+				});
+			}
 		});
 		function getEmps(empId){
 			//alert(1);

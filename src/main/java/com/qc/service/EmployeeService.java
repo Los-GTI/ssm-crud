@@ -71,6 +71,14 @@ public class EmployeeService {
 		// TODO Auto-generated method stub
 		employeeMapper.updateByPrimaryKeySelective(employee);
 	}
+
+	/**
+	 * @param id
+	 */
+	public void deleteEmpById(Integer id) {
+		// TODO Auto-generated method stub
+		employeeMapper.deleteByPrimaryKey(id);
+	}
 	
 	
 }

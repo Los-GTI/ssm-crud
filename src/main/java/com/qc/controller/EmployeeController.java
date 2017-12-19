@@ -36,6 +36,18 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
 
+	/**
+	 * 根据id删除单个员工
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/deleteById/{id}",method=RequestMethod.GET)
+	public Msg deleteById(@PathVariable("id") Integer id){
+		System.out.println(id);
+		employeeService.deleteEmpById(id);
+		return Msg.success();
+	}
 	/*
 	 * ResponseBody工作需要Jackson包
 	 */
